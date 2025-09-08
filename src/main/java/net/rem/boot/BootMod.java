@@ -3,6 +3,8 @@ package net.rem.boot;
 import com.mojang.logging.LogUtils;
 import net.minecraft.client.Minecraft;
 import net.minecraft.core.registries.Registries;
+import net.minecraft.world.entity.EntityType;
+import net.minecraft.world.entity.MobCategory;
 import net.minecraft.world.food.FoodProperties;
 import net.minecraft.world.item.BlockItem;
 import net.minecraft.world.item.CreativeModeTab;
@@ -26,12 +28,26 @@ import net.minecraftforge.fml.javafmlmod.FMLJavaModLoadingContext;
 import net.minecraftforge.registries.DeferredRegister;
 import net.minecraftforge.registries.ForgeRegistries;
 import net.minecraftforge.registries.RegistryObject;
+import net.rem.boot.entity.TheBootEntity;
 import org.slf4j.Logger;
 
 // The value here should match an entry in the META-INF/mods.toml file
 @Mod(net.rem.boot.BootMod.MOD_ID)
 public class BootMod
 {
+
+    public static final DeferredRegister<EntityType<?>> ENTITY_TYPES =
+            DeferredRegister.create(ForgeRegistries.ENTITY_TYPES, BootMod.MOD_ID);
+
+    public static final RegistryObject<EntityType<TheBootEntity>> THEBOOT =
+            ENTITY_TYPES.register("boot",
+                    () -> EntityType.Builder.<TheBootEntity>of(TheBootEntity::new, MobCategory.MISC)
+                            .sized(0.25F, 0.25F)
+                            .build("boot"));
+
+
+
+
     // Define mod id in a common place for everything to reference
     public static final String MOD_ID = "bootmod";
     // Directly reference a slf4j logger
