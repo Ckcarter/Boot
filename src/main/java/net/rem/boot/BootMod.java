@@ -29,6 +29,7 @@ import net.minecraftforge.registries.DeferredRegister;
 import net.minecraftforge.registries.ForgeRegistries;
 import net.minecraftforge.registries.RegistryObject;
 import net.rem.boot.entity.TheBootEntity;
+import net.rem.boot.item.TheBootItem;
 import org.slf4j.Logger;
 
 // The value here should match an entry in the META-INF/mods.toml file
@@ -38,6 +39,14 @@ public class BootMod
 
     public static final DeferredRegister<EntityType<?>> ENTITY_TYPES =
             DeferredRegister.create(ForgeRegistries.ENTITY_TYPES, BootMod.MOD_ID);
+
+    public static final DeferredRegister<Item> ITEMS =
+            DeferredRegister.create(ForgeRegistries.ITEMS, BootMod.MOD_ID);
+
+
+    public static final RegistryObject<Item> THEBOOT_ITEM =
+            ITEMS.register("boot", () -> new TheBootItem(new Item.Properties()));
+
 
     public static final RegistryObject<EntityType<TheBootEntity>> THEBOOT =
             ENTITY_TYPES.register("boot",
@@ -60,6 +69,8 @@ public class BootMod
         // Register the commonSetup method for modloading
         modEventBus.addListener(this::commonSetup);
 
+        ENTITY_TYPES.register(modEventBus);
+        ITEMS.register(modEventBus);
 
         // Register ourselves for server and other game events we are interested in
         MinecraftForge.EVENT_BUS.register(this);
@@ -79,6 +90,10 @@ public class BootMod
     // Add the example block item to the building blocks tab
     private void addCreative(BuildCreativeModeTabContentsEvent event)
     {
+
+        if (event.getTabKey() == CreativeModeTabs.INGREDIENTS) {
+            event.accept(THEBOOT_ITEM);
+        }
 
     }
 

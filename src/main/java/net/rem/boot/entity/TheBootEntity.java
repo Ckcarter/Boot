@@ -8,7 +8,6 @@ import net.minecraft.world.level.Level;
 import net.minecraft.world.phys.EntityHitResult;
 import net.rem.boot.BootMod;
 
-import static java.nio.file.Files.getOwner;
 
 public class TheBootEntity extends ThrowableItemProjectile {
     public TheBootEntity(EntityType<? extends TheBootEntity> type, Level level) {
@@ -23,7 +22,7 @@ public class TheBootEntity extends ThrowableItemProjectile {
 
     @Override
     protected Item getDefaultItem() {
-        return BootMod.THEBOOT.get();
+        return BootMod.THEBOOT_ITEM.get();
     }
 
     @Override
