@@ -59,7 +59,7 @@ public class BootEntity extends ThrowableItemProjectile {
         if (!this.level().isClientSide) {
             Entity entity = result.getEntity();
 
-            entity.hurt(this.damageSources().thrown(this, this.getOwner()),1000.0f);
+            entity.hurt(this.damageSources().source(BOOT_DAMAGE_TYPE, this, this.getOwner()), 1000.0F);
             //this.level().explode(this, entity.getX(), entity.getY(), entity.getZ(), 0.5F, Level.ExplosionInteraction.TNT);
         }
     }
