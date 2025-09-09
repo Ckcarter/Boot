@@ -53,9 +53,8 @@ public class BootMod
                             .build("boot"));
 
 
-    public static final ResourceKey<DamageType> FIREBALL_DAMAGE_TYPE =
-            ResourceKey.create(Registries.DAMAGE_TYPE, new ResourceLocation(BootMod.MOD_ID, "fireball"));
-
+    public static final ResourceKey<DamageType> BOOT_DAMAGE_TYPE =
+            ResourceKey.create(Registries.DAMAGE_TYPE, new ResourceLocation(BootMod.MOD_ID, "boot"));
 
 
 

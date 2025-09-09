@@ -1,5 +1,5 @@
 {
-  "message_id": "fireball",
+  "message_id": "boot",
   "scaling": "when_caused_by_player",
   "exhaustion": 0.1,
   "effects": "hurt"

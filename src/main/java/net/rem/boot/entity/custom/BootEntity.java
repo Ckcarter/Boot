@@ -1,5 +1,7 @@
 package net.rem.boot.entity.custom;
 
+
+
 import net.minecraft.core.particles.ItemParticleOption;
 import net.minecraft.core.particles.ParticleOptions;
 import net.minecraft.core.particles.ParticleTypes;
@@ -13,6 +15,9 @@ import net.minecraft.world.level.Level;
 import net.minecraft.world.phys.EntityHitResult;
 import net.minecraft.world.phys.HitResult;
 import net.rem.boot.BootMod;
+
+import static net.rem.boot.BootMod.BOOT_DAMAGE_TYPE;
+import static org.openjdk.nashorn.internal.objects.NativeRegExp.source;
 
 public class BootEntity extends ThrowableItemProjectile {
     public BootEntity(EntityType<? extends BootEntity> entityType, Level level) {
@@ -53,7 +58,8 @@ public class BootEntity extends ThrowableItemProjectile {
         super.onHitEntity(result);
         if (!this.level().isClientSide) {
             Entity entity = result.getEntity();
-            entity.hurt(this.damageSources().thrown(this, this.getOwner()), 10000.0f);
+
+            entity.hurt(this.damageSources().source(BootMod.BOOT_DAMAGE_TYPE, this, this.getOwner()), 10000.0f);
             //this.level().explode(this, entity.getX(), entity.getY(), entity.getZ(), 0.5F, Level.ExplosionInteraction.TNT);
         }
     }
