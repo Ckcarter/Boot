@@ -17,7 +17,7 @@ public class PlayerDeathEvent {
                 Component msg =
                         Component.translatable("death.bootmod.boot",
                                 player.getDisplayName());
-                event.setDeathMessage(msg);
+                //event.setDeathMessage(msg);
             }
         }
     }
