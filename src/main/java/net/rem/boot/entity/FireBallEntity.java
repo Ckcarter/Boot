@@ -15,62 +15,55 @@ import net.minecraft.world.item.Items;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.phys.EntityHitResult;
 import net.minecraft.world.phys.HitResult;
+import net.rem.boot.BootMod;
 
 public class FireBallEntity extends ThrowableItemProjectile {
-    public FireBallEntity(EntityType<? extends Snowball> pEntityType, Level pLevel) {
-        super(pEntityType, pLevel);
+    public FireBallEntity(EntityType<? extends FireBallEntity> entityType, Level level) {
+        super(entityType, level);
     }
 
-    public FireBallEntity(Level pLevel, LivingEntity pShooter) {
-        super(EntityType.SNOWBALL, pShooter, pLevel);
+    public FireBallEntity(Level level, LivingEntity shooter) {
+        super(BootMod.FIREBALL_ENTITY.get(), shooter, level);
     }
 
-    public FireBallEntity(Level pLevel, double pX, double pY, double pZ) {
-        super(EntityType.SNOWBALL, pX, pY, pZ, pLevel);
+    public FireBallEntity(Level level, double x, double y, double z) {
+        super(BootMod.FIREBALL_ENTITY.get(), x, y, z, level);
     }
 
+    @Override
     protected Item getDefaultItem() {
-        return Items.SNOWBALL;
+        return BootMod.FIREBALL.get();
     }
 
     private ParticleOptions getParticle() {
-        ItemStack itemstack = this.getItemRaw();
-        return (ParticleOptions) (itemstack.isEmpty() ? ParticleTypes.ITEM_SNOWBALL : new ItemParticleOption(ParticleTypes.ITEM, itemstack));
+        ItemStack stack = this.getItemRaw();
+        return stack.isEmpty() ? ParticleTypes.ITEM_SNOWBALL : new ItemParticleOption(ParticleTypes.ITEM, stack);
     }
 
-    /**
-     * Handles an entity event received from a {@link net.minecraft.network.protocol.game.ClientboundEntityEventPacket}.
-     */
-    public void handleEntityEvent(byte pId) {
-        if (pId == 3) {
-            ParticleOptions particleoptions = this.getParticle();
+    public void handleEntityEvent(byte id) {
+        if (id == 3) {
+            ParticleOptions particle = this.getParticle();
 
             for (int i = 0; i < 8; ++i) {
-                this.level().addParticle(particleoptions, this.getX(), this.getY(), this.getZ(), 0.0D, 0.0D, 0.0D);
+                this.level().addParticle(particle, this.getX(), this.getY(), this.getZ(), 0.0D, 0.0D, 0.0D);
             }
         }
-
     }
-
-    /**
-     * Called when the arrow hits an entity
-     */
-    protected void onHitEntity(EntityHitResult pResult) {
-        super.onHitEntity(pResult);
-        Entity entity = pResult.getEntity();
-        int i = entity instanceof Blaze ? 3 : 0;
-        entity.hurt(this.damageSources().thrown(this, this.getOwner()), (float) i);
+    @Override
+    protected void onHitEntity(EntityHitResult result) {
+        super.onHitEntity(result);
+        Entity entity = result.getEntity();
+        entity.hurt(this.damageSources().thrown(this, this.getOwner()), 5.0F);
     }
-
-    /**
-     * Called when this EntityFireball hits a block or entity.
-     */
-    protected void onHit(HitResult pResult) {
-        super.onHit(pResult);
+    @Override
+    protected void onHit(HitResult result) {
+        super.onHit(result);
         if (!this.level().isClientSide) {
             this.level().broadcastEntityEvent(this, (byte) 3);
             this.discard();
         }
-
     }
+
+
+
 }

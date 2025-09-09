@@ -2,6 +2,7 @@ package net.rem.boot;
 
 import com.mojang.logging.LogUtils;
 import net.minecraft.world.entity.EntityType;
+import net.minecraft.world.entity.MobCategory;
 import net.minecraft.world.item.CreativeModeTabs;
 import net.minecraft.world.item.Item;
 import net.minecraftforge.api.distmarker.Dist;
@@ -20,6 +21,7 @@ import net.minecraftforge.registries.ForgeRegistries;
 import net.minecraftforge.registries.RegistryObject;
 
 import net.rem.boot.entity.FireBallEntity;
+import net.rem.boot.item.FireBallItem;
 import org.slf4j.Logger;
 
 // The value here should match an entry in the META-INF/mods.toml file
@@ -35,15 +37,13 @@ public class BootMod
 
 
     public static final RegistryObject<Item> FIREBALL =
-            ITEMS.register("fireball", () -> new FireBallEntity(new Item.Properties()));
+            ITEMS.register("fireball", () -> new FireBallItem(new Item.Properties()));
 
-
-//    public static final RegistryObject<EntityType<SnowBallEntity>> SNOWBALL =
-//            ENTITY_TYPES.register("snow_ball",
-//                    () -> EntityType.Builder.<SnowBallEntity>of(SnowBallEntity::new, MobCategory.MISC)
-//                            .sized(0.25F, 0.25F)
-//                            .build("snow_ball"));
-
+    public static final RegistryObject<EntityType<FireBallEntity>> FIREBALL_ENTITY =
+            ENTITY_TYPES.register("fireball",
+                    () -> EntityType.Builder.<FireBallEntity>of(FireBallEntity::new, MobCategory.MISC)
+                            .sized(0.25F, 0.25F)
+                            .build("fireball"));
 
 
 
