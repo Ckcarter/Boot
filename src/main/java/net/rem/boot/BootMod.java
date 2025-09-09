@@ -1,6 +1,7 @@
 package net.rem.boot;
 
 import com.mojang.logging.LogUtils;
+import net.minecraft.client.renderer.entity.EntityRenderers;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.MobCategory;
 import net.minecraft.world.item.CreativeModeTabs;
@@ -19,6 +20,8 @@ import net.minecraftforge.fml.javafmlmod.FMLJavaModLoadingContext;
 import net.minecraftforge.registries.DeferredRegister;
 import net.minecraftforge.registries.ForgeRegistries;
 import net.minecraftforge.registries.RegistryObject;
+import net.minecraft.client.renderer.entity.EntityRenderers;
+import net.minecraft.client.renderer.entity.ThrownItemRenderer;
 
 import net.rem.boot.entity.FireBallEntity;
 import net.rem.boot.item.FireBallItem;
@@ -101,7 +104,9 @@ public class BootMod
         @SubscribeEvent
         public static void onClientSetup(FMLClientSetupEvent event) {
 
-
+            event.enqueueWork(() ->
+                    EntityRenderers.register(BootMod.FIREBALL_ENTITY.get(), ThrownItemRenderer::new)
+            );
         }
     }
 }

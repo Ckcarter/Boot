@@ -52,8 +52,10 @@ public class FireBallEntity extends ThrowableItemProjectile {
     @Override
     protected void onHitEntity(EntityHitResult result) {
         super.onHitEntity(result);
-        Entity entity = result.getEntity();
-        entity.hurt(this.damageSources().thrown(this, this.getOwner()), 5.0F);
+        if (!this.level().isClientSide) {
+            Entity entity = result.getEntity();
+            this.level().explode(this, entity.getX(), entity.getY(), entity.getZ(), 0.5F, Level.ExplosionInteraction.TNT);
+        }
     }
     @Override
     protected void onHit(HitResult result) {
