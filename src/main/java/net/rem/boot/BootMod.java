@@ -82,7 +82,7 @@ public class BootMod
     {
 
         if (event.getTabKey() == CreativeModeTabs.INGREDIENTS) {
-            event.accept(SNOWBALL);
+            event.accept(FIREBALL);
         }
 
     }
