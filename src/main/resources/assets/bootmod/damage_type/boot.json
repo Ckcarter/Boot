@@ -1,6 +1,6 @@
 {
   "message_id": "fireball",
-  "scaling": "Boot To the Head",
+  "scaling": "when_caused_by_player",
   "exhaustion": 0.1,
   "effects": "hurt"
 }

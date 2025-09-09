@@ -37,6 +37,7 @@ public class BootEntity extends ThrowableItemProjectile {
         return stack.isEmpty() ? ParticleTypes.ITEM_SNOWBALL : new ItemParticleOption(ParticleTypes.ITEM, stack);
     }
 
+    @Override
     public void handleEntityEvent(byte id) {
         if (id == 3) {
             ParticleOptions particle = this.getParticle();
@@ -46,15 +47,17 @@ public class BootEntity extends ThrowableItemProjectile {
             }
         }
     }
+
     @Override
     protected void onHitEntity(EntityHitResult result) {
         super.onHitEntity(result);
         if (!this.level().isClientSide) {
             Entity entity = result.getEntity();
-            entity.hurt(this.damageSources().thrown(this, this.getOwner()), 5.0f);
+            entity.hurt(this.damageSources().thrown(this, this.getOwner()), 10000.0f);
             //this.level().explode(this, entity.getX(), entity.getY(), entity.getZ(), 0.5F, Level.ExplosionInteraction.TNT);
         }
     }
+
     @Override
     protected void onHit(HitResult result) {
         super.onHit(result);
@@ -63,7 +66,4 @@ public class BootEntity extends ThrowableItemProjectile {
             this.discard();
         }
     }
-
-
-
 }

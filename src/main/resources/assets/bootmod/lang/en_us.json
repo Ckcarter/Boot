@@ -1,4 +1,4 @@
 {
-  "death.attack.fireball": "%1$s was incinerated by Boot to the Head!",
-  "death.attack.fireball.player": "%1$s was incinerated by %2$s's Boot to the Head!"
+  "death.attack.boot": "%1$s was incinerated by Boot to the Head!",
+  "death.attack.boot.player": "%1$s was incinerated by %2$s's Boot to the Head!"
 }

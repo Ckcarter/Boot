@@ -2,6 +2,10 @@ package net.rem.boot;
 
 import com.mojang.logging.LogUtils;
 import net.minecraft.client.renderer.entity.EntityRenderers;
+import net.minecraft.core.registries.Registries;
+import net.minecraft.resources.ResourceKey;
+import net.minecraft.resources.ResourceLocation;
+import net.minecraft.world.damagesource.DamageType;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.MobCategory;
 import net.minecraft.world.item.CreativeModeTabs;
@@ -49,9 +53,9 @@ public class BootMod
                             .build("boot"));
 
 
-//    public static final ResourceKey<DamageType> FIREBALL_DAMAGE_TYPE =
-//            ResourceKey.create(Registries.DAMAGE_TYPE, new ResourceLocation(BootMod.MOD_ID, "fireball"));
-//
+    public static final ResourceKey<DamageType> FIREBALL_DAMAGE_TYPE =
+            ResourceKey.create(Registries.DAMAGE_TYPE, new ResourceLocation(BootMod.MOD_ID, "fireball"));
+
 
 
 
