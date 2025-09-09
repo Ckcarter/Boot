@@ -22,6 +22,11 @@ import net.minecraftforge.registries.ForgeRegistries;
 import net.minecraftforge.registries.RegistryObject;
 import net.minecraft.client.renderer.entity.EntityRenderers;
 import net.minecraft.client.renderer.entity.ThrownItemRenderer;
+import net.minecraft.core.registries.Registries;
+import net.minecraft.resources.ResourceKey;
+import net.minecraft.resources.ResourceLocation;
+import net.minecraft.world.damagesource.DamageType;
+
 
 import net.rem.boot.entity.FireBallEntity;
 import net.rem.boot.item.FireBallItem;
@@ -47,6 +52,11 @@ public class BootMod
                     () -> EntityType.Builder.<FireBallEntity>of(FireBallEntity::new, MobCategory.MISC)
                             .sized(0.25F, 0.25F)
                             .build("fireball"));
+
+
+    public static final ResourceKey<DamageType> FIREBALL_DAMAGE_TYPE =
+            ResourceKey.create(Registries.DAMAGE_TYPE, new ResourceLocation(BootMod.MOD_ID, "fireball"));
+
 
 
 
