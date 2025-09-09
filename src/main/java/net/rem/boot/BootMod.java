@@ -20,7 +20,6 @@ import net.minecraftforge.fml.javafmlmod.FMLJavaModLoadingContext;
 import net.minecraftforge.registries.DeferredRegister;
 import net.minecraftforge.registries.ForgeRegistries;
 import net.minecraftforge.registries.RegistryObject;
-import net.minecraft.client.renderer.entity.EntityRenderers;
 import net.minecraft.client.renderer.entity.ThrownItemRenderer;
 import net.minecraft.core.registries.Registries;
 import net.minecraft.resources.ResourceKey;
