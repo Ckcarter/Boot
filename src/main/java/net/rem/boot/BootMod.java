@@ -18,7 +18,7 @@ import net.minecraftforge.fml.javafmlmod.FMLJavaModLoadingContext;
 import net.minecraftforge.registries.DeferredRegister;
 import net.minecraftforge.registries.ForgeRegistries;
 import net.minecraftforge.registries.RegistryObject;
-
+import net.rem.boot.item.FireBallItem;
 import net.rem.boot.entity.FireBallEntity;
 import org.slf4j.Logger;
 
@@ -33,9 +33,8 @@ public class BootMod
     public static final DeferredRegister<Item> ITEMS =
             DeferredRegister.create(ForgeRegistries.ITEMS, BootMod.MOD_ID);
 
-
-    public static final RegistryObject<Item> SNOWBALL =
-            ITEMS.register("fire_ball", () -> new FireBallEntity(new Item.Properties()));
+    public static final RegistryObject<Item> FIRE_BALL =
+            ITEMS.register("fire_ball", () -> new FireBallItem(new Item.Properties()));
 
 
 //    public static final RegistryObject<EntityType<SnowBallEntity>> SNOWBALL =
@@ -82,7 +81,7 @@ public class BootMod
     {
 
         if (event.getTabKey() == CreativeModeTabs.INGREDIENTS) {
-            event.accept(SNOWBALL);
+            event.accept(FIRE_BALL);
         }
 
     }

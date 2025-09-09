@@ -12,8 +12,9 @@ import net.minecraft.world.item.Items;
 import net.minecraft.world.level.Level;
 
 
-public class FireBallEntity extends AbstractHurtingProjectile implements ItemSupplier {
-    private static final EntityDataAccessor<ItemStack> DATA_ITEM_STACK = SynchedEntityData.defineId(Fireball.class, EntityDataSerializers.ITEM_STACK);
+public class FireBallEntity extends ThrowableItemProjectile {
+    private static final EntityDataAccessor<ItemStack> DATA_ITEM_STACK =
+            SynchedEntityData.defineId(FireBallEntity.class, EntityDataSerializers.ITEM_STACK);
 
     public FireBallEntity(EntityType<? extends Fireball> pEntityType, Level pLevel) {
         super(pEntityType, pLevel);
