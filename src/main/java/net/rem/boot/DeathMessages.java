@@ -12,7 +12,7 @@ public class DeathMessages {
     public static void onDeath(LivingDeathEvent event) {
         if (event.getEntity() instanceof Player player) {
             Component message = Component.translatable("death.attack.bootmod.boot", player.getDisplayName());
-            //event.setDeathMessage(message);
+            //event.setPhase(message);
         }
     }
 }
