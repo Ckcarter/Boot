@@ -1,68 +1,76 @@
 package net.rem.boot.entity;
 
-import net.minecraft.nbt.CompoundTag;
-import net.minecraft.network.syncher.EntityDataAccessor;
-import net.minecraft.network.syncher.EntityDataSerializers;
-import net.minecraft.network.syncher.SynchedEntityData;
+import net.minecraft.core.particles.ItemParticleOption;
+import net.minecraft.core.particles.ParticleOptions;
+import net.minecraft.core.particles.ParticleTypes;
+import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.LivingEntity;
-import net.minecraft.world.entity.projectile.*;
+import net.minecraft.world.entity.monster.Blaze;
+import net.minecraft.world.entity.projectile.Snowball;
+import net.minecraft.world.entity.projectile.ThrowableItemProjectile;
+import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Items;
 import net.minecraft.world.level.Level;
-
+import net.minecraft.world.phys.EntityHitResult;
+import net.minecraft.world.phys.HitResult;
 
 public class FireBallEntity extends ThrowableItemProjectile {
-    private static final EntityDataAccessor<ItemStack> DATA_ITEM_STACK =
-            SynchedEntityData.defineId(FireBallEntity.class, EntityDataSerializers.ITEM_STACK);
-
-    public FireBallEntity(EntityType<? extends Fireball> pEntityType, Level pLevel) {
+    public FireBallEntity(EntityType<? extends Snowball> pEntityType, Level pLevel) {
         super(pEntityType, pLevel);
     }
 
-    public FireBallEntity(EntityType<? extends Fireball> pEntityType, double pX, double pY, double pZ, double pOffsetX, double pOffsetY, double pOffsetZ, Level pLevel) {
-        super(pEntityType, pX, pY, pZ, pOffsetX, pOffsetY, pOffsetZ, pLevel);
+    public FireBallEntity(Level pLevel, LivingEntity pShooter) {
+        super(EntityType.SNOWBALL, pShooter, pLevel);
     }
 
-    public FireBallEntity(EntityType<? extends Fireball> pEntityType, LivingEntity pShooter, double pOffsetX, double pOffsetY, double pOffsetZ, Level pLevel) {
-        super(pEntityType, pShooter, pOffsetX, pOffsetY, pOffsetZ, pLevel);
+    public FireBallEntity(Level pLevel, double pX, double pY, double pZ) {
+        super(EntityType.SNOWBALL, pX, pY, pZ, pLevel);
     }
 
-    public void setItem(ItemStack pStack) {
-        if (!pStack.is(Items.FIRE_CHARGE) || pStack.hasTag()) {
-            this.getEntityData().set(DATA_ITEM_STACK, pStack.copyWithCount(1));
-        }
-
+    protected Item getDefaultItem() {
+        return Items.SNOWBALL;
     }
 
-    protected ItemStack getItemRaw() {
-        return this.getEntityData().get(DATA_ITEM_STACK);
-    }
-
-    public ItemStack getItem() {
+    private ParticleOptions getParticle() {
         ItemStack itemstack = this.getItemRaw();
-        return itemstack.isEmpty() ? new ItemStack(Items.FIRE_CHARGE) : itemstack;
+        return (ParticleOptions) (itemstack.isEmpty() ? ParticleTypes.ITEM_SNOWBALL : new ItemParticleOption(ParticleTypes.ITEM, itemstack));
     }
 
-    protected void defineSynchedData() {
-        this.getEntityData().define(DATA_ITEM_STACK, ItemStack.EMPTY);
-    }
+    /**
+     * Handles an entity event received from a {@link net.minecraft.network.protocol.game.ClientboundEntityEventPacket}.
+     */
+    public void handleEntityEvent(byte pId) {
+        if (pId == 3) {
+            ParticleOptions particleoptions = this.getParticle();
 
-    public void addAdditionalSaveData(CompoundTag pCompound) {
-        super.addAdditionalSaveData(pCompound);
-        ItemStack itemstack = this.getItemRaw();
-        if (!itemstack.isEmpty()) {
-            pCompound.put("Item", itemstack.save(new CompoundTag()));
+            for (int i = 0; i < 8; ++i) {
+                this.level().addParticle(particleoptions, this.getX(), this.getY(), this.getZ(), 0.0D, 0.0D, 0.0D);
+            }
         }
 
     }
 
     /**
-     * (abstract) Protected helper method to read subclass entity data from NBT.
+     * Called when the arrow hits an entity
      */
-    public void readAdditionalSaveData(CompoundTag pCompound) {
-        super.readAdditionalSaveData(pCompound);
-        ItemStack itemstack = ItemStack.of(pCompound.getCompound("Item"));
-        this.setItem(itemstack);
+    protected void onHitEntity(EntityHitResult pResult) {
+        super.onHitEntity(pResult);
+        Entity entity = pResult.getEntity();
+        int i = entity instanceof Blaze ? 3 : 0;
+        entity.hurt(this.damageSources().thrown(this, this.getOwner()), (float) i);
+    }
+
+    /**
+     * Called when this EntityFireball hits a block or entity.
+     */
+    protected void onHit(HitResult pResult) {
+        super.onHit(pResult);
+        if (!this.level().isClientSide) {
+            this.level().broadcastEntityEvent(this, (byte) 3);
+            this.discard();
+        }
+
     }
 }
