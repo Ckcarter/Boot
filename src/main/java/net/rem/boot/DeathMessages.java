@@ -14,9 +14,19 @@ public class DeathMessages {
         if (event.getEntity() instanceof Player player) {
             DamageSource source = event.getSource();
             if (source.is(BootMod.BOOT_DAMAGE_TYPE)) {
-                Component message = Component.translatable("death.attack.bootmod.boot", player.getDisplayName());
-                event.setDeathMessage(message);
+                Component message;
+                if (source.getEntity() instanceof Player killer) {
+                    message = Component.translatable(
+                            "death.attack.bootmod.boot.player",
+                            player.getDisplayName(),
+                            killer.getDisplayName());
+                } else {
+                    message = Component.translatable(
+                            "death.attack.bootmod.boot",
+                            player.getDisplayName());
+                }
             }
+
         }
     }
 }
