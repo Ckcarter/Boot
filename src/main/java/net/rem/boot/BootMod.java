@@ -35,6 +35,10 @@ import org.slf4j.Logger;
 @Mod(BootMod.MOD_ID)
 public class BootMod
 {
+    public static final String MOD_ID = "bootmod";
+    public BootMod() {
+        MinecraftForge.EVENT_BUS.register(this);
+    }
 
     public static final DeferredRegister<EntityType<?>> ENTITY_TYPES =
             DeferredRegister.create(ForgeRegistries.ENTITY_TYPES, BootMod.MOD_ID);
