@@ -65,7 +65,7 @@ public class BootMod
     // Define mod id in a common place for everything to reference
 
     // Directly reference a slf4j logger
-    private static final Logger LOGGER = LogUtils.getLogger();
+    public static final Logger LOGGER = LogUtils.getLogger();
 
     public BootMod(FMLJavaModLoadingContext context)
     {
