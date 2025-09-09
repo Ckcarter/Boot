@@ -8,12 +8,11 @@ import net.minecraft.world.InteractionResultHolder;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
-import net.minecraft.world.item.SnowballItem;
 import net.minecraft.world.level.Level;
-import net.rem.boot.entity.FireBallEntity;
+import net.rem.boot.entity.BootEntity;
 
-public class FireBallItem extends Item {
-    public FireBallItem(Properties properties) {
+public class BootItem extends Item {
+    public BootItem(Properties properties) {
         super(properties);
     }
 
@@ -25,7 +24,7 @@ public class FireBallItem extends Item {
                 0.5F, 0.4F / (level.random.nextFloat() * 0.4F + 0.8F));
 
         if (!level.isClientSide) {
-            FireBallEntity entity = new FireBallEntity(level, player);
+            BootEntity entity = new BootEntity(level, player);
             entity.setItem(stack);
             entity.shootFromRotation(player, player.getXRot(), player.getYRot(), 0.0F, 1.5F, 1.0F);
             level.addFreshEntity(entity);

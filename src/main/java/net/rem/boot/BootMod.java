@@ -21,14 +21,10 @@ import net.minecraftforge.registries.DeferredRegister;
 import net.minecraftforge.registries.ForgeRegistries;
 import net.minecraftforge.registries.RegistryObject;
 import net.minecraft.client.renderer.entity.ThrownItemRenderer;
-import net.minecraft.core.registries.Registries;
-import net.minecraft.resources.ResourceKey;
-import net.minecraft.resources.ResourceLocation;
-import net.minecraft.world.damagesource.DamageType;
 
 
-import net.rem.boot.entity.FireBallEntity;
-import net.rem.boot.item.FireBallItem;
+import net.rem.boot.entity.BootEntity;
+import net.rem.boot.item.BootItem;
 import org.slf4j.Logger;
 
 // The value here should match an entry in the META-INF/mods.toml file
@@ -43,19 +39,19 @@ public class BootMod
             DeferredRegister.create(ForgeRegistries.ITEMS, BootMod.MOD_ID);
 
 
-    public static final RegistryObject<Item> FIREBALL =
-            ITEMS.register("fireball", () -> new FireBallItem(new Item.Properties()));
+    public static final RegistryObject<Item> BOOT =
+            ITEMS.register("boot", () -> new BootItem(new Item.Properties()));
 
-    public static final RegistryObject<EntityType<FireBallEntity>> FIREBALL_ENTITY =
-            ENTITY_TYPES.register("fireball",
-                    () -> EntityType.Builder.<FireBallEntity>of(FireBallEntity::new, MobCategory.MISC)
+    public static final RegistryObject<EntityType<BootEntity>> FIREBALL_ENTITY =
+            ENTITY_TYPES.register("boot",
+                    () -> EntityType.Builder.<BootEntity>of(BootEntity::new, MobCategory.MISC)
                             .sized(0.25F, 0.25F)
-                            .build("fireball"));
+                            .build("boot"));
 
 
-    public static final ResourceKey<DamageType> FIREBALL_DAMAGE_TYPE =
-            ResourceKey.create(Registries.DAMAGE_TYPE, new ResourceLocation(BootMod.MOD_ID, "fireball"));
-
+//    public static final ResourceKey<DamageType> FIREBALL_DAMAGE_TYPE =
+//            ResourceKey.create(Registries.DAMAGE_TYPE, new ResourceLocation(BootMod.MOD_ID, "fireball"));
+//
 
 
 
@@ -94,7 +90,7 @@ public class BootMod
     {
 
         if (event.getTabKey() == CreativeModeTabs.INGREDIENTS) {
-            event.accept(FIREBALL);
+            event.accept(BOOT);
         }
 
     }
