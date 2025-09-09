@@ -1,12 +1,11 @@
 package net.rem.boot.event;
 
+import net.minecraft.network.chat.Component;
 import net.minecraft.world.entity.player.Player;
 import net.minecraftforge.event.entity.living.LivingDeathEvent;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.common.Mod;
 import net.rem.boot.BootMod;
-
-import java.awt.*;
 
 public class PlayerDeathEvent {
 
