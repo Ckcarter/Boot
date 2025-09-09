@@ -27,8 +27,8 @@ import net.minecraftforge.registries.RegistryObject;
 import net.minecraft.client.renderer.entity.ThrownItemRenderer;
 
 
-import net.rem.boot.entity.BootEntity;
-import net.rem.boot.item.BootItem;
+import net.rem.boot.entity.custom.BootEntity;
+import net.rem.boot.item.custom.BootItem;
 import org.slf4j.Logger;
 
 // The value here should match an entry in the META-INF/mods.toml file

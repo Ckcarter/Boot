@@ -1,4 +1,4 @@
-package net.rem.boot.entity;
+package net.rem.boot.entity.custom;
 
 import net.minecraft.core.particles.ItemParticleOption;
 import net.minecraft.core.particles.ParticleOptions;

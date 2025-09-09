@@ -1,4 +1,4 @@
-package net.rem.boot.item;
+package net.rem.boot.item.custom;
 
 import net.minecraft.sounds.SoundEvents;
 import net.minecraft.sounds.SoundSource;
@@ -9,7 +9,7 @@ import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.Level;
-import net.rem.boot.entity.BootEntity;
+import net.rem.boot.entity.custom.BootEntity;
 
 public class BootItem extends Item {
     public BootItem(Properties properties) {
