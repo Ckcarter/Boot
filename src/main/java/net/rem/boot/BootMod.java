@@ -80,8 +80,7 @@ public class BootMod
     public static final RegistryObject<Item> BOOT =
             ITEMS.register("boot", () -> new BootItem(new Item.Properties().stacksTo(1)));
     public static final RegistryObject<Item> LIGHT_BOOT =
-            ITEMS.register("light_boot", () -> new BootItem(new Item.Properties().stacksTo(2)));
-
+            ITEMS.register("light_boot", () -> new BootItem(new Item.Properties().stacksTo(1)));
     public static final RegistryObject<EntityType<BootEntity>> FIREBALL_ENTITY =
             ENTITY_TYPES.register("boot",
                     () -> EntityType.Builder.<BootEntity>of(BootEntity::new, MobCategory.MISC)
