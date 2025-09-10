@@ -5,9 +5,11 @@ package net.rem.boot.entity.custom;
 import net.minecraft.core.particles.ItemParticleOption;
 import net.minecraft.core.particles.ParticleOptions;
 import net.minecraft.core.particles.ParticleTypes;
+import net.minecraft.network.chat.Component;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.LivingEntity;
+import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.entity.projectile.ThrowableItemProjectile;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
@@ -58,9 +60,20 @@ public class BootEntity extends ThrowableItemProjectile {
         if (!this.level().isClientSide()) {
             Entity entity = result.getEntity();
 
-            if (!this.getItem().is(BootMod.LIGHT_BOOT.get())) {
+            if (this.getItem().is(BootMod.LIGHT_BOOT.get())) {
+                for (Player player : this.level().players()) {
+                    player.sendSystemMessage(Component.translatable("message.bootmod.light_boot_hit"));
+                }
+            } else {
                 entity.hurt(this.damageSources().thrown(this, this.getOwner()), 1000.0F);
             }
+
+
+
+
+//            if (!this.getItem().is(BootMod.LIGHT_BOOT.get())) {
+//                entity.hurt(this.damageSources().thrown(this, this.getOwner()), 1000.0F);
+
 //            entity.hurt(this.damageSources().thrown(this, this.getOwner()), 1000.0F);
             //this.level().explode(this, entity.getX(), entity.getY(), entity.getZ(), 0.5F, Level.ExplosionInteraction.TNT);
         }

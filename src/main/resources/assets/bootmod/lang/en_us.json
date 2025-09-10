@@ -1,6 +1,7 @@
 {
   "item.bootmod.boot": "Boot",
   "item.bootmod.light_boot": "Lighter Boot",
+  "message.bootmod.light_boot_hit": "boot to the Head",
   "death.attack.bootmod.boot": "%1$s was killed by..., Boot to the Head!",
   "death.attack.bootmod.boot.player": "%1$s was killed by %2$s's Boot to the Head!"
 
