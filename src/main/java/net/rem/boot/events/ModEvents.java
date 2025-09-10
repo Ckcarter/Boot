@@ -2,17 +2,22 @@ package net.rem.boot.events;
 
 
 
+import net.minecraft.network.chat.Component;
 import net.minecraft.world.InteractionHand;
+import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.animal.Sheep;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.Items;
+import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.event.entity.living.LivingDamageEvent;
+import net.minecraftforge.event.entity.living.LivingDeathEvent;
 import net.minecraftforge.event.entity.living.LivingEvent;
 import net.minecraftforge.event.village.VillagerTradesEvent;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.event.IModBusEvent;
 import net.rem.boot.BootMod;
+import net.rem.boot.events.custom.DeathTextEvent;
 import net.rem.boot.item.ModItems;
 
 import java.util.HashSet;
@@ -39,6 +44,17 @@ public class ModEvents {
 
 
     }
-
+    @SubscribeEvent
+    public static void livingDeath(LivingDeathEvent event) {
+        LivingEntity entity = event.getEntity();
+        if (!entity.level().isClientSide()) {
+            Component message = Component.literal(entity.getDisplayName().getString() + " Boot to the Head!");
+            DeathTextEvent textEvent = new DeathTextEvent(entity, message);
+            MinecraftForge.EVENT_BUS.post(textEvent);
+            for (Player player : entity.level().players()) {
+                player.sendSystemMessage(textEvent.getText());
+            }
+        }
+    }
 
 }
