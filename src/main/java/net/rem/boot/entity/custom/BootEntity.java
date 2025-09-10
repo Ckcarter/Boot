@@ -62,7 +62,7 @@ public class BootEntity extends ThrowableItemProjectile {
 
             if (this.getItem().is(BootMod.LIGHT_BOOT.get())) {
                 for (Player player : this.level().players()) {
-                    player.sendSystemMessage(Component.translatable("message.bootmod.light_boot_hit"));
+                    player.sendSystemMessage(Component.translatable("Hey " + entity.getDisplayName().getString() + ", Boot to the Head!"));
                 }
             } else {
                 entity.hurt(this.damageSources().thrown(this, this.getOwner()), 1000.0F);
