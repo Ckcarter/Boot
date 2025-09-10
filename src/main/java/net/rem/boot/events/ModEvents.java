@@ -15,8 +15,8 @@ import net.minecraftforge.event.entity.living.LivingEvent;
 import net.minecraftforge.event.village.VillagerTradesEvent;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.common.Mod;
-import net.minecraftforge.fml.event.IModBusEvent;
 import net.rem.boot.BootMod;
+import net.rem.boot.entity.custom.BootEntity;
 import net.rem.boot.events.custom.DeathTextEvent;
 import net.rem.boot.item.ModItems;
 
@@ -49,7 +49,7 @@ public class ModEvents {
 
 
         LivingEntity entity = event.getEntity();
-        if (!entity.level().isClientSide()) {
+        if (!entity.level().isClientSide() && event.getSource().getDirectEntity() instanceof BootEntity) {
             Component message = Component.literal("Hey " + entity.getDisplayName().getString() + ", Boot to the Head!");
             DeathTextEvent textEvent = new DeathTextEvent(entity, message);
             MinecraftForge.EVENT_BUS.post(textEvent);
