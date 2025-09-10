@@ -12,6 +12,9 @@ import net.minecraft.world.level.Level;
 import net.rem.boot.entity.custom.BootEntity;
 
 public class BootItem extends Item {
+
+    private static final int COOLDOWN_TICKS = 20;
+
     public BootItem(Properties properties) {
         super(properties);
     }
@@ -31,6 +34,7 @@ public class BootItem extends Item {
         }
 
         player.awardStat(Stats.ITEM_USED.get(this));
+        player.getCooldowns().addCooldown(this, COOLDOWN_TICKS);
         if (!player.getAbilities().instabuild) {
             stack.shrink(1);
         }

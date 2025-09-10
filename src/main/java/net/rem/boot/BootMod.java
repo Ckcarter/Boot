@@ -78,7 +78,7 @@ public class BootMod
 
 
     public static final RegistryObject<Item> BOOT =
-            ITEMS.register("boot", () -> new BootItem(new Item.Properties()));
+            ITEMS.register("boot", () -> new BootItem(new Item.Properties().stacksTo(1)));
 
     public static final RegistryObject<EntityType<BootEntity>> FIREBALL_ENTITY =
             ENTITY_TYPES.register("boot",
