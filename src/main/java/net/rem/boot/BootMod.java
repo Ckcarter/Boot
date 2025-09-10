@@ -22,6 +22,7 @@ import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.config.ModConfig;
 import net.minecraftforge.fml.event.lifecycle.FMLClientSetupEvent;
 import net.minecraftforge.fml.event.lifecycle.FMLCommonSetupEvent;
+import net.minecraftforge.fml.ModLoadingContext;
 import net.minecraftforge.fml.javafmlmod.FMLJavaModLoadingContext;
 import net.minecraftforge.network.NetworkEvent;
 import net.minecraftforge.network.NetworkRegistry;
@@ -51,7 +52,22 @@ public class BootMod
 {
     public static final String MOD_ID = "bootmod";
     public BootMod() {
+        IEventBus modEventBus = FMLJavaModLoadingContext.get().getModEventBus();
+
+        // Register the commonSetup method for modloading
+        modEventBus.addListener(this::commonSetup);
+
+        ENTITY_TYPES.register(modEventBus);
+        ITEMS.register(modEventBus);
+
+        // Register the item to a creative tab
+        modEventBus.addListener(this::addCreative);
+
+        // Register ourselves for server and other game events we are interested in
         MinecraftForge.EVENT_BUS.register(this);
+
+        // Register our mod's ForgeConfigSpec so that Forge can create and load the config file for us
+        ModLoadingContext.get().registerConfig(ModConfig.Type.COMMON, Config.SPEC);
     }
 
     public static final DeferredRegister<EntityType<?>> ENTITY_TYPES =
@@ -81,25 +97,6 @@ public class BootMod
     // Directly reference a slf4j logger
     public static final Logger LOGGER = LogUtils.getLogger();
 
-    public BootMod(FMLJavaModLoadingContext context)
-    {
-        IEventBus modEventBus = context.getModEventBus();
-
-        // Register the commonSetup method for modloading
-        modEventBus.addListener(this::commonSetup);
-
-        ENTITY_TYPES.register(modEventBus);
-        ITEMS.register(modEventBus);
-
-        // Register ourselves for server and other game events we are interested in
-        MinecraftForge.EVENT_BUS.register(this);
-
-        // Register the item to a creative tab
-        modEventBus.addListener(this::addCreative);
-
-        // Register our mod's ForgeConfigSpec so that Forge can create and load the config file for us
-        context.registerConfig(ModConfig.Type.COMMON, Config.SPEC);
-    }
 
     private void commonSetup(final FMLCommonSetupEvent event)
     {

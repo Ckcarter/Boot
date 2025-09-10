@@ -16,8 +16,7 @@ import net.minecraft.world.phys.EntityHitResult;
 import net.minecraft.world.phys.HitResult;
 import net.rem.boot.BootMod;
 
-import static net.rem.boot.BootMod.BOOT_DAMAGE_TYPE;
-import static org.openjdk.nashorn.internal.objects.NativeRegExp.source;
+
 
 public class BootEntity extends ThrowableItemProjectile {
     public BootEntity(EntityType<? extends BootEntity> entityType, Level level) {
@@ -56,7 +55,7 @@ public class BootEntity extends ThrowableItemProjectile {
     @Override
     protected void onHitEntity(EntityHitResult result) {
         super.onHitEntity(result);
-        if (!this.level().isClientSide) {
+        if (!this.level().isClientSide()) {
             Entity entity = result.getEntity();
 
             entity.hurt(this.damageSources().thrown(this, this.getOwner()), 1000.0F);
@@ -67,7 +66,7 @@ public class BootEntity extends ThrowableItemProjectile {
     @Override
     protected void onHit(HitResult result) {
         super.onHit(result);
-        if (!this.level().isClientSide) {
+        if (!this.level().isClientSide()) {
             this.level().broadcastEntityEvent(this, (byte) 3);
             this.discard();
         }
