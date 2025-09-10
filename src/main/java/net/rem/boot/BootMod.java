@@ -79,6 +79,8 @@ public class BootMod
 
     public static final RegistryObject<Item> BOOT =
             ITEMS.register("boot", () -> new BootItem(new Item.Properties().stacksTo(1)));
+    public static final RegistryObject<Item> LIGHT_BOOT =
+            ITEMS.register("light_boot", () -> new BootItem(new Item.Properties().stacksTo(2)));
 
     public static final RegistryObject<EntityType<BootEntity>> FIREBALL_ENTITY =
             ENTITY_TYPES.register("boot",
@@ -109,6 +111,7 @@ public class BootMod
 
         if (event.getTabKey() == CreativeModeTabs.INGREDIENTS) {
             event.accept(BOOT);
+            event.accept(LIGHT_BOOT);
         }
 
     }

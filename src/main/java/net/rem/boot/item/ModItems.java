@@ -23,6 +23,9 @@ public class ModItems {
     public static final RegistryObject<Item> BOOT = ITEMS.register("boot",
             () -> new Item(new Item.Properties()));
 
+    public static final RegistryObject<Item> LIGHT_BOOT = ITEMS.register("light_boot",
+            () -> new Item(new Item.Properties()));
+
 
     public static final DeferredRegister<Item> REGISTRY = DeferredRegister.create(ForgeRegistries.ITEMS, BootMod.MOD_ID);
 

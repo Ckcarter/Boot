@@ -44,6 +44,7 @@ public class ModItemModelProvider extends ItemModelProvider {
     protected void registerModels() {
 
         handheldItem(ModItems.BOOT);
+        simpleItem(ModItems.LIGHT_BOOT);
     }
 
     // Shoutout to El_Redstoniano for making this
