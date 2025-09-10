@@ -48,7 +48,7 @@ public class ModEvents {
     public static void livingDeath(LivingDeathEvent event) {
         LivingEntity entity = event.getEntity();
         if (!entity.level().isClientSide()) {
-            Component message = Component.literal(entity.getDisplayName().getString() + " Boot to the Head!");
+            Component message = Component.literal("Hey " + entity.getDisplayName().getString() + ", Boot to the Head!");
             DeathTextEvent textEvent = new DeathTextEvent(entity, message);
             MinecraftForge.EVENT_BUS.post(textEvent);
             for (Player player : entity.level().players()) {
