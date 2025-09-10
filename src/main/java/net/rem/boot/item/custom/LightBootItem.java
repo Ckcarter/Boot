@@ -14,9 +14,11 @@ import net.rem.boot.entity.custom.BootEntity;
 public class LightBootItem extends Item {
 
     private static final int COOLDOWN_TICKS = 20;
+    private final float damage;
 
     public LightBootItem(Properties properties) {
         super(properties);
+        this.damage = damage;
     }
 
     @Override
@@ -29,6 +31,7 @@ public class LightBootItem extends Item {
         if (!level.isClientSide()) {
             BootEntity entity = new BootEntity(level, player);
             entity.setItem(stack);
+            entity.setDamage(this.damage);
             entity.shootFromRotation(player, player.getXRot(), player.getYRot(), 0.0F, 1.5F, 1.0F);
             level.addFreshEntity(entity);
         }
