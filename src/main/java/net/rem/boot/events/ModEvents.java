@@ -46,6 +46,8 @@ public class ModEvents {
     }
     @SubscribeEvent
     public static void livingDeath(LivingDeathEvent event) {
+
+
         LivingEntity entity = event.getEntity();
         if (!entity.level().isClientSide()) {
             Component message = Component.literal("Hey " + entity.getDisplayName().getString() + ", Boot to the Head!");
